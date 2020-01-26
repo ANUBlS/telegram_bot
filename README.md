@@ -1,2 +1,2 @@
 # telegram_bot
-bot for teklegram
+bot for telegram

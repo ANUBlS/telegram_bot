@@ -350,7 +350,7 @@ def main():
 	print('started')	
 	#logger.info("Starting...")
 
-	updater = Updater('850558425:AAFLZUjeFPPG_7-9oGRtGm12qaw-1G7BxyE')
+	updater = Updater('your tg key')
 
 	# info = bot.get_me()
 	# logger.info(f'Bot info: {info}')

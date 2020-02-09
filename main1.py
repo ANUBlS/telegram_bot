@@ -280,18 +280,9 @@ def do_new(bot, update):
 
 
 
-def do_blueteam(bot, update):
-
-	print ('33333')
-	bot.send_message(
-	chat_id=update.message.chat_id,
-	text='Send Any Amount of Bip to \n 🔵Blue Team🔵',
-	reply_markup=get_back(),
-	)
-	print ('fdf')
 
 
-def do_redteam(bot, update):
+def do_help(bot, update):
 
 	print ('2323')
 	bot.send_message(
@@ -335,9 +326,9 @@ def do_echo(bot,update):
 	text = update.message.text
 	if text == '🔴Red Team🔴':
 		print ('red')
-		return do_redteam(bot=bot,update=update)
-	elif text == '🔵Blue Team🔵':
-		return do_blueteam(bot=bot,update=update)
+		return do_help(bot=bot,update=update)
+	elif text == BUTTON2_TIME:
+		return do_time(bot=bot,update=update)
 	else:
 		reply_text = "Ваш ID = {}\n\n{}".format(chat_id, text)
 	bot.send_message(
@@ -359,7 +350,7 @@ def main():
 	dp = updater.dispatcher
 
 	dp.add_handler(CommandHandler('start',start))
-	dp.add_handler(CommandHandler('help',do_redteam))
+	dp.add_handler(CommandHandler('help',do_help))
 	dp.add_handler(CommandHandler('time',do_bnt))
 
 

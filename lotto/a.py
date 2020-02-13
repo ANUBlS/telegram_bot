@@ -1,4 +1,6 @@
 import logging
+import urllib
+import json
 
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
@@ -10,7 +12,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-GENDER, PHOTO, LOCATION, BIO = range(4)
+GENDER,  BIO = range(2)
+data=[]
 
 
 def start(update, context):
@@ -20,21 +23,38 @@ def start(update, context):
         'Hi! My name is Professor Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
         'Are you a boy or a girl?',
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
 
     return GENDER
 
 
 def gender(update, context):
+
+    reply_keyboard = [['Boy', 'Girl', 'Other']]
     user = update.message.from_user
+    context.user_data[GENDER]=(update.message.text)
+    elem_to_find = update.message.text
+
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find] 
+    print(str(reply_keyboard))
+    #res1 = any(elem_to_find in sublist for sublist in reply_keyboard) 
+    
+    #reply_keyboard.remove(elem_to_find)
+
+
+    
+
+    #filter(lambda sub_list: context.user_data[GENDER] not in sub_list, reply_keyboard)
     logger.info("Gender of %s: %s", user.first_name, update.message.text)
     update.message.reply_text('I see! Please send me a photo of yourself, '
-                              'so I know what you look like, or send /skip if you don\'t want to.',
-                              reply_markup=ReplyKeyboardRemove())
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
 
-    return PHOTO
+    return BIO
 
-
+'''
 def photo(update, context):
     user = update.message.from_user
     photo_file = update.message.photo[-1].get_file()
@@ -54,7 +74,6 @@ def skip_photo(update, context):
 
     return LOCATION
 
-
 def location(update, context):
     user = update.message.from_user
     user_location = update.message.location
@@ -73,11 +92,13 @@ def skip_location(update, context):
                               'At last, tell me something about yourself.')
 
     return BIO
-
+'''
 
 def bio(update, context):
     user = update.message.from_user
-    logger.info("Bio of %s: %s", user.first_name, update.message.text)
+    context.user_data[BIO]=(update.message.text)
+    logger.info("Bio of %s: %s", update.message.text,context.user_data)
+    
     update.message.reply_text('Thank you! I hope we can talk again some day.')
 
     return ConversationHandler.END
@@ -113,11 +134,9 @@ def main():
         states={
             GENDER: [MessageHandler(Filters.regex('^(Boy|Girl|Other)$'), gender)],
 
-            PHOTO: [MessageHandler(Filters.photo, photo),
-                    CommandHandler('skip', skip_photo)],
+           # PHOTO: [MessageHandler(Filters.photo, photo),CommandHandler('skip', skip_photo)],
 
-            LOCATION: [MessageHandler(Filters.location, location),
-                       CommandHandler('skip', skip_location)],
+           # LOCATION: [MessageHandler(Filters.location, location),CommandHandler('skip', skip_location)],
 
             BIO: [MessageHandler(Filters.text, bio)]
         },

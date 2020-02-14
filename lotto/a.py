@@ -12,13 +12,18 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-GENDER,  BIO = range(2)
+GENDER,  BIO,FRST ,SCND,THRD,FRTH,FFTH = range(7)
 data=[]
 
 
 def start(update, context):
-    reply_keyboard = [['Boy', 'Girl', 'Other']]
+    reply_keyboard = [['1ee', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
 
+                 
     update.message.reply_text(
         'Hi! My name is Professor Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
@@ -27,26 +32,156 @@ def start(update, context):
 
     return GENDER
 
+def First(update, context):
 
-def gender(update, context):
-
-    reply_keyboard = [['Boy', 'Girl', 'Other']]
+    reply_keyboard = [['1', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
     user = update.message.from_user
-    context.user_data[GENDER]=(update.message.text)
-    elem_to_find = update.message.text
+    context.user_data[FRST]=(update.message.text)
+    elem_to_find = context.user_data[FRST]
 
     #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
     for sub in reply_keyboard: 
         sub[:] = [ele for ele in sub if ele != elem_to_find] 
     print(str(reply_keyboard))
-    #res1 = any(elem_to_find in sublist for sublist in reply_keyboard) 
-    
-    #reply_keyboard.remove(elem_to_find)
+
+    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    update.message.reply_text('I see! Please send me a photo of yourself, '
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+
+    return SCND
+
+def Second(update, context):
+
+    reply_keyboard = [['1', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
+    user = update.message.from_user
+    context.user_data[SCND]=(update.message.text)
+    #elem_to_find = update.message.text
+
+    elem_to_find = context.user_data[FRST],
+    elem_to_find2 = context.user_data[SCND]
 
 
-    
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find] 
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find2] 
+    print(str(reply_keyboard))
 
-    #filter(lambda sub_list: context.user_data[GENDER] not in sub_list, reply_keyboard)
+    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    update.message.reply_text('I see! Please send me a photo of yourself, '
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+
+    return THRD
+
+def Third(update, context):
+
+    reply_keyboard = [['1', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
+    user = update.message.from_user
+    context.user_data[THRD]=(update.message.text)
+    elem_to_find = update.message.text
+
+    elem_to_find  = context.user_data[FRST]
+    elem_to_find2 = context.user_data[SCND]
+    elem_to_find3 = context.user_data[THRD]
+   
+
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find2]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find3]  
+    print(str(reply_keyboard))
+
+    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    update.message.reply_text('I see! Please send me a photo of yourself, '
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+
+    return FRTH
+
+def Fourth(update, context):
+
+    reply_keyboard = [['1', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
+    user = update.message.from_user
+    context.user_data[FRTH]=(update.message.text)
+    elem_to_find = update.message.text
+
+    elem_to_find = context.user_data[FRTH]
+    elem_to_find2 = context.user_data[FRST]
+    elem_to_find3 = context.user_data[SCND]
+    elem_to_find4 = context.user_data[THRD]
+   
+
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find2]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find3]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find4]  
+
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find] 
+    print(str(reply_keyboard))
+
+    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    update.message.reply_text('I see! Please send me a photo of yourself, '
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+
+    return FFTH
+
+def Fifth(update, context):
+
+    reply_keyboard = [['1', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
+    user = update.message.from_user
+    context.user_data[FFTH]=(update.message.text)
+    elem_to_find = update.message.text
+
+    elem_to_find = context.user_data[FRTH]
+    elem_to_find2 = context.user_data[FRST]
+    elem_to_find3 = context.user_data[SCND]
+    elem_to_find4 = context.user_data[THRD]
+    elem_to_find5 = context.user_data[FFTH]
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find2]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find3]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find4]
+    for sub in reply_keyboard: 
+        sub[:] = [ele for ele in sub if ele != elem_to_find5]  
+    print(str(reply_keyboard))
+
     logger.info("Gender of %s: %s", user.first_name, update.message.text)
     update.message.reply_text('I see! Please send me a photo of yourself, '
                               'so I know what you look like, or send /skip22 if you don\'t want to.',
@@ -54,52 +189,40 @@ def gender(update, context):
 
     return BIO
 
-'''
-def photo(update, context):
+
+
+def gender(update, context):
+
+    reply_keyboard = [['BUY', '2','3','4','5','6',],
+                      [ '7','8','9','10','11', '12',],
+                      ['13','14','15','16', '17','18',],
+                      ['19','20','21', '22','23','24','25'],
+                      ['view Ticket']   ]
     user = update.message.from_user
-    photo_file = update.message.photo[-1].get_file()
-    photo_file.download('user_photo.jpg')
-    logger.info("Photo of %s: %s", user.first_name, 'user_photo.jpg')
-    update.message.reply_text('Gorgeous! Now, send me your location please, '
-                              'or send /skip if you don\'t want to.')
 
-    return LOCATION
+    elem_to_find = update.message.text
+    print (update.message.text)
+    if update.message.text=='BUY': 
+        return FRST
 
+    #res = [[ele for ele in sub if ele != elem_to_find] for sub in reply_keyboard]
+    
 
-def skip_photo(update, context):
-    user = update.message.from_user
-    logger.info("User %s did not send a photo.", user.first_name)
-    update.message.reply_text('I bet you look great! Now, send me your location please, '
-                              'or send /skip.')
+    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    update.message.reply_text('I see! Please send me a photo of yourself, '
+                              'so I know what you look like, or send /skip22 if you don\'t want to.',
+                              reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
 
-    return LOCATION
-
-def location(update, context):
-    user = update.message.from_user
-    user_location = update.message.location
-    logger.info("Location of %s: %f / %f", user.first_name, user_location.latitude,
-                user_location.longitude)
-    update.message.reply_text('Maybe I can visit you sometime! '
-                              'At last, tell me something about yourself.')
-
-    return BIO
+    #return FRST
 
 
-def skip_location(update, context):
-    user = update.message.from_user
-    logger.info("User %s did not send a location.", user.first_name)
-    update.message.reply_text('You seem a bit paranoid! '
-                              'At last, tell me something about yourself.')
-
-    return BIO
-'''
 
 def bio(update, context):
     user = update.message.from_user
     context.user_data[BIO]=(update.message.text)
-    logger.info("Bio of %s: %s", update.message.text,context.user_data)
+    logger.info("USer id %s: %s", update.message.text,context.user_data)
     
-    update.message.reply_text('Thank you! I hope we can talk again some day.')
+    update.message.reply_text('Thank you! I hope we can talk again some day.',reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
 
@@ -132,7 +255,12 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            GENDER: [MessageHandler(Filters.regex('^(Boy|Girl|Other)$'), gender)],
+            GENDER:[MessageHandler(Filters.text, gender)],
+            FRST: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), First)],
+            SCND: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), Second)],
+            THRD: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), Third)],
+            FRTH: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), Fourth)],
+            FFTH: [MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), Fifth)],
 
            # PHOTO: [MessageHandler(Filters.photo, photo),CommandHandler('skip', skip_photo)],
 

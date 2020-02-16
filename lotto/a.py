@@ -113,10 +113,10 @@ def bio(update, context):
     user = update.message.from_user
     
     # logger.info("USer id %s: %s", update.message.text,context.user_data)
-    
-    update.message.reply_text('Choose 1ST numbers .',reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
-    context.user_data[FRST]=update.message.text
-    return FRST
+    if update.message.text=='Buy Tickets':
+        update.message.reply_text('Choose 1ST numbers .',reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+        context.user_data[FRST]=update.message.text
+        return FRST
 
 def First(update, context):
 

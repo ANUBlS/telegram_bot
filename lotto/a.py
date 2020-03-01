@@ -13,7 +13,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-GENDER, VIET, BIO, FRST, SCND, THRD, FRTH, FFTH, SXT = range(9)
+GENDER, VIET,NEW, BIO, FRST, SCND, THRD, FRTH, FFTH, SXT  = range(10)
 data = []
 
 CALLBACK_BUTTON1 = "callback_button1"
@@ -61,15 +61,8 @@ def start(update, context):
     
     word =update.message.text
     
-    if (word.find('Buy') != -1):
-        print (update.message.text)
-        update.message.reply_text(
-        'Hi again! want to buy new ticket? ' ,
-         reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True)
-       )
-        #return BIO
-    else:
-        update.message.reply_text(
+    
+    update.message.reply_text(
             'Hi! Do yo want to play Lottery ? '
             'Click YES Otherwise  choose NO.\n\n'
             ,
@@ -77,24 +70,14 @@ def start(update, context):
 
     return GENDER
 
-def new(update, context):
 
-    reply_keyboard = [['Buy Tickets'],['View Ticket']]
-    
-    user = update.message.from_user
-    elem_to_find = update.message.text
-    update.message.reply_text('I see you want to play! Buy ticket or View your Tickets bought for this round  , ',
-                                reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
-
-    return GENDER
-    
-        
 
 
 def gender(update, context):
 
     reply_keyboard = [['Buy Tickets'],['View Ticket']]
     print('t55')
+    
     if update.message.text=='Yes':
         user = update.message.from_user
         elem_to_find = update.message.text
@@ -102,6 +85,7 @@ def gender(update, context):
                                 reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
 
         return BIO
+   
     else:
         return cancel(update, context)
         
@@ -246,7 +230,7 @@ def Fourth(update, context):
 
 def Fifth(update, context):
 
-    reply_keyboard = [['view Ticket']]
+    reply_keyboard = [['BUY new  Ticket']]
     user = update.message.from_user
     context.user_data[SXT]=(update.message.text)
     elem_to_find = update.message.text
@@ -273,15 +257,30 @@ def Fifth(update, context):
     update.message.reply_text('You choosed this numbers  \n\n'
 
                               + elem_to_find2+'-'+elem_to_find3+'-'+elem_to_find4+'-'+elem_to_find+'-'+elem_to_find5 +'- '+update.message.text
-                              ,#reply_markup=get_back()
-                                reply_markup=ReplyKeyboardRemove()
+                              ,reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True)
+                               # reply_markup=ReplyKeyboardRemove()
                               )
-    update.message.reply_text( 'press "/start" to buy a new ticket ,to view your bought tickets press "View Ticket" ')
+   # update.message.reply_text( 'press "/start" to buy a new ticket ,to view your bought tickets press "View Ticket" ')
 
-    return ConversationHandler.END
+    return new(update, context)
+
+def new(update, context):
+
+    reply_keyboard = [['Buy Tickets'],['View Ticket']]
+    print ('ff')
+    
+    user = update.message.from_user
+
+    elem_to_find = update.message.text
+    print(update.message.text)
+    update.message.reply_text('If you want to play again, Buy new ticket or View your Tickets bought for this round  , ',
+                                reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+
+    return BIO
+    
 
 def viet(update, context):
-   # reply_keyboard = [['Buy New ticket'] ]
+    reply_keyboard = [['Buy New ticket'] ]
 
     elem_to_find = context.user_data[SXT]
     elem_to_find =  context.user_data[FRTH]
@@ -292,7 +291,8 @@ def viet(update, context):
     user = update.message.from_user
     print (context.user_data)
     #logger.info("ended vie ticked cli", context.user_data)
-    update.message.reply_text(elem_to_find2+'-'+elem_to_find3+'-'+elem_to_find4+'-'+elem_to_find+'-'+elem_to_find5 +'- '+elem_to_find, )
+    update.message.reply_text(elem_to_find2+'-'+elem_to_find3+'-'+elem_to_find4+'-'+elem_to_find+'-'+elem_to_find5 +'- '+elem_to_find, 
+    reply_markup=reply_keyboard() )
 
     return ConversationHandler.END
 
@@ -330,6 +330,7 @@ def main():
 
         states={
             GENDER:[MessageHandler(Filters.text, gender)],
+            #GET2:[MessageHandler(Filters.text, g2)],
             BIO:[MessageHandler(Filters.text, bio)],
             FRST:[MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), First)],
             SCND:[MessageHandler(Filters.regex('^(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25)$'), Second)],

@@ -101,6 +101,12 @@ def bio(update, context):
         update.message.reply_text('Choose 1ST numbers .',reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
         context.user_data[FRST]=update.message.text
         return FRST
+    if update.message.text=='View Ticket':
+        update.message.reply_text('To view your bought ticket send us your Minter wallet Adrress.',reply_markup=ReplyKeyboardMarkup(reply_keyboard,resize_keyboard=True))
+        context.user_data[FRST]=update.message.text
+        print(update.message.text)
+    
+        return FRST
 
 def First(update, context):
 
@@ -318,7 +324,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("984290476:AAE4kpNCJ1ll6FSQyNHGb79dl1FovKI2w2o", use_context=True)
+    updater = Updater("984290476:AAHiZSsppYtPom-2wM8xtxlBVG1JXfRVLnI", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
